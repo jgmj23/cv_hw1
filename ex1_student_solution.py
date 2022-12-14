@@ -324,7 +324,7 @@ class Solution:
         src_idx = np.hstack((y_src.reshape(-1, 1, order='F'), x_src.reshape(-1, 1, order='F')))
 
         channels = src_image[:, :, :].reshape(-1, 1, 3)
-        grid_c = griddata(src_idx, channels, bckwd, method='linear')
+        grid_c = griddata(src_idx, channels, bckwd, method='cubic')
         interpolations = np.squeeze(grid_c)
         backward_warp[dst_idx[:, 1], dst_idx[:, 0], :] = interpolations
         backward_warp = np.clip(backward_warp, 0, 255).astype(np.uint8)
@@ -469,7 +469,9 @@ class Solution:
 
         homography=self.compute_homography(match_p_src,match_p_dst, inliers_percent, max_err)
         panorama_shape=np.array([0,0,3])
+
         bkwd_homography=np.linalg.inv(homography)
+        bkwd_homography/=bkwd_homography[-1,-1]
 
         panorama_shape[0], panorama_shape[1], padding=self.find_panorama_shape(src_image,dst_image,homography)
         img_panorama = np.zeros(panorama_shape, dtype=int)

@@ -1,6 +1,4 @@
 import time
-
-import numpy as np
 import scipy.io
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -14,8 +12,8 @@ from ex1_student_solution import Solution
 ##########################################################
 # Don't forget to fill in your IDs!!!
 # students' IDs:
-ID1 = '123456789'
-ID2 = '987654321'
+ID1 = '208510511'
+ID2 = '330403163'
 ##########################################################
 
 
@@ -134,16 +132,6 @@ def main():
     print('RANSAC Homography Test {:5.4f} sec'.format(toc(tt)))
     print([fit_percent, dist_mse])
 
-    backward_warp=solution.compute_backward_mapping(np.linalg.inv(ransac_homography), src_img, dst_img.shape)
-    plt.figure()
-    plt.imshow(backward_warp)
-    plt.title('Backward imperfect matches')
-    plt.show()
-
-
-
-
-
     # Build panorama
     tt = tic()
     img_pan = solution.panorama(src_img,
@@ -158,7 +146,6 @@ def main():
     plt.figure()
     course_panorama_plot = plt.imshow(img_pan)
     plt.title('Great Panorama')
-    plt.savefig('Great Panorama')
     # plt.show()
     plt.show()
 
