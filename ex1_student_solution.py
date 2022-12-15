@@ -254,8 +254,7 @@ class Solution:
         for i in range(k):
             sampled_idx = np.random.randint(match_p_src.shape[1], size=n)
             H_test = self.compute_homography_naive(match_p_src[:, sampled_idx], match_p_dst[:, sampled_idx])
-            inliers_src, inliers_dst = self.meet_the_model_points(H_test, match_p_src, match_p_dst, t)
-            inliers_percent = inliers_src.shape[1] / match_p_src.shape[1]
+            inliers_percent, mse_temp = self.test_homography(H_test, match_p_src, match_p_dst, t)
 
             if inliers_percent > max_fit_percent:
 
